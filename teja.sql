@@ -1,4 +1,7 @@
 
+
+# @TODO
+#     REMOVE FROM HERE
 DROP TABLE rating;
 DROP TABLE preRequisite;
 DROP TABLE subjectProfessorRegistration;
@@ -11,6 +14,7 @@ DROP TABLE subject;
 DROP TABLE course;
 DROP TABLE department;
 DROP TABLE user;
+#     REMOVE UNTIL HERE
 
 
 CREATE TABLE user(
