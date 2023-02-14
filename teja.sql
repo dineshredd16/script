@@ -54,7 +54,8 @@ CREATE TABLE subject(
     subjectID varchar(124) NOT NULL UNIQUE,
     courseID varchar(124),
     name varchar(124) NOT NULL UNIQUE,
-    subjectCode varchar(124), term varchar(124),
+    subjectCode varchar(124),
+    term varchar(124),
     isActive bool,
     PRIMARY KEY (subjectID),
     FOREIGN KEY (courseID) REFERENCES course(courseID)
@@ -266,3 +267,15 @@ INSERT INTO
     VALUES
         ("1","3",10,2)
     ;
+
+
+SELECT
+    CONCAT(user.firstName, " ", user.middleName, " ", user.lastName) as name, user.gmuID, user.SSN, subject.name as subjectName, subject.term
+FROM
+    user
+LEFT OUTER JOIN sectionProfessor on user.SSN = sectionProfessor.SSN
+LEFT OUTER JOIN subjectSection on sectionProfessor.subjectSectionID = subjectSection.subjectSectionID
+LEFT OUTER JOIN subject on subjectSection.subjectID = subject.subjectID
+WHERE
+    user.isActive = 1 AND user.userType = 'professor';
+
