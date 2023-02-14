@@ -2,18 +2,18 @@
 
 # @TODO
 #     REMOVE FROM HERE
-DROP TABLE rating;
-DROP TABLE preRequisite;
-DROP TABLE subjectProfessorRegistration;
-DROP TABLE registration;
-DROP TABLE studentGrade;
-DROP TABLE subjectAssignment;
-DROP TABLE sectionProfessor;
-DROP TABLE subjectSection;
-DROP TABLE subject;
-DROP TABLE course;
-DROP TABLE department;
-DROP TABLE user;
+# DROP TABLE rating;
+# DROP TABLE preRequisite;
+# DROP TABLE subjectProfessorRegistration;
+# DROP TABLE registration;
+# DROP TABLE studentGrade;
+# DROP TABLE subjectAssignment;
+# DROP TABLE sectionProfessor;
+# DROP TABLE subjectSection;
+# DROP TABLE subject;
+# DROP TABLE course;
+# DROP TABLE department;
+# DROP TABLE user;
 #     REMOVE UNTIL HERE
 
 
@@ -269,6 +269,7 @@ INSERT INTO
     ;
 
 
+# question 1:
 SELECT
     CONCAT(user.firstName, " ", user.middleName, " ", user.lastName) as name, user.gmuID, user.SSN, subject.name as subjectName, subject.term
 FROM
@@ -277,5 +278,16 @@ LEFT OUTER JOIN sectionProfessor on user.SSN = sectionProfessor.SSN
 LEFT OUTER JOIN subjectSection on sectionProfessor.subjectSectionID = subjectSection.subjectSectionID
 LEFT OUTER JOIN subject on subjectSection.subjectID = subject.subjectID
 WHERE
-    user.isActive = 1 AND user.userType = 'professor';
+    user.isActive = 1 AND user.userType = 'professor' AND subject.term = "Spring2023";
 
+#question 2:
+SELECT
+    subjectAssignment.assignmentType, subject.name as subjectName, subject.term, CONCAT(user.firstName, " ", user.middleName, " ", user.lastName) as professorName
+FROM
+    subjectAssignment
+LEFT OUTER JOIN sectionProfessor on subjectAssignment.sectionProfessorID = sectionProfessor.sectionProfessorID
+LEFT OUTER JOIN subjectSection on sectionProfessor.subjectSectionID = subjectSection.subjectSectionID
+LEFT OUTER JOIN subject on subjectSection.subjectID = subject.subjectID
+LEFT OUTER JOIN user on sectionProfessor.SSN = user.SSN
+WHERE
+    subjectAssignment.assignmentType = 'MCQ' AND user.userType = 'professor';
