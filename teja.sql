@@ -1,20 +1,18 @@
 
 
-# @TODO
-#     REMOVE FROM HERE
-# DROP TABLE rating;
-# DROP TABLE preRequisite;
-# DROP TABLE subjectProfessorRegistration;
-# DROP TABLE registration;
-# DROP TABLE studentGrade;
-# DROP TABLE subjectAssignment;
-# DROP TABLE sectionProfessor;
-# DROP TABLE subjectSection;
-# DROP TABLE subject;
-# DROP TABLE course;
-# DROP TABLE department;
-# DROP TABLE user;
-#     REMOVE UNTIL HERE
+-- @TODO
+-- DROP TABLE rating;
+-- DROP TABLE preRequisite;
+-- DROP TABLE subjectProfessorRegistration;
+-- DROP TABLE registration;
+-- DROP TABLE studentGrade;
+-- DROP TABLE subjectAssignment;
+-- DROP TABLE sectionProfessor;
+-- DROP TABLE subjectSection;
+-- DROP TABLE subject;
+-- DROP TABLE course;
+-- DROP TABLE department;
+-- DROP TABLE user;
 
 
 CREATE TABLE user(
