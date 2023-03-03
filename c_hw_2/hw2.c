@@ -9,25 +9,24 @@ struct address_t	{
   struct address_t*next;
 };
 
-int insertIntoLl(struct address_t** head, int eightBit[4], char alias[11]) {
+struct address_t* insertIntoLl(struct address_t** head, int eightBit[4], char alias[11]) {
   struct address_t* newNode = (struct address_t*) malloc(sizeof(struct address_t));
   memcpy(newNode->eightBit, eightBit, sizeof(newNode->eightBit));
   strncpy(newNode->alias, alias, sizeof(newNode->alias));
   newNode->alias[sizeof(newNode->alias) - 1] = '\0';
   newNode->next = *head;
   *head = newNode;
-  return 0;
+  return *head;
 }
 
-int splitFileString(char fileString[100], struct address_t* head){
+struct address_t* splitFileString(char fileString[100], struct address_t* head){
   int eightBit[4];
   int i = 0;
   sscanf(fileString, "%d.%d.%d.%d", &eightBit[0], &eightBit[1], &eightBit[2], &eightBit[3]);
   char *space = strchr(fileString, ' ');
   char alias[100];
   strncpy(alias, space+1, sizeof(alias));
-  insertIntoLl(&head, eightBit, alias);
-  return 0;
+  return insertIntoLl(&head, eightBit, alias);
 }
 
 void printLinkedList(struct address_t* head){
@@ -43,7 +42,7 @@ int readFromFile(){
   char fileString[100];
   struct address_t* head = NULL;
   while(fgets(fileString, 100, filePtr)) {
-    splitFileString(fileString, head);
+    head = splitFileString(fileString, head);
   }
   printLinkedList(head);
   return 0;
