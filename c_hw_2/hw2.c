@@ -30,13 +30,16 @@ struct address_t* splitFileString(char fileString[100], struct address_t* head){
 }
 
 void printLinkedList(struct address_t* head){
+  int count = 0;
   while (head != NULL) {
     printf("%d.%d.%d.%d %s\n", head->eightBit[0], head->eightBit[1], head->eightBit[2], head->eightBit[3], head->alias);
     head = head->next;
+    count++;
   }
+  printf("Total Node Count: %d", count);
 }
 
-int readFromFile(){
+struct address_t* readFromFile(){
   FILE *filePtr;
   filePtr = fopen("CS531_Inet.txt", "r");
   char fileString[100];
@@ -45,7 +48,8 @@ int readFromFile(){
     head = splitFileString(fileString, head);
   }
   printLinkedList(head);
-  return 0;
+  printf("\ninitial read of all the data records from CS531_Inet.txt is completed.");
+  return head;
 }
 
 void addAddress(){
@@ -64,8 +68,9 @@ void deleteAddress(){
   printf("deleteAddress");
 }
 
-void displayLl(){
-  printf("displayLl");
+void displayLl(struct address_t* head){
+  printf("\nDisplaying the list: \n\n");
+  printLinkedList(head);
 }
 
 void displayAliasForLocation(){
@@ -76,7 +81,7 @@ void saveToFile(){
   printf("saveToFile");
 }
 
-int optionActions(){
+int optionActions(struct address_t* head){
   int temp=0;
   while(temp != 8){
     printf("\n\nSelect The Task With Option Number: \n\n1 --> Add address\n2 --> Look up address\n3 --> Update address\n4 --> Delete address\n5 --> Display list\n6 --> Display aliases for location\n7 --> Save to file\n8 --> Quit\n\n");
@@ -96,7 +101,7 @@ int optionActions(){
         deleteAddress();
         break;
       case 5:
-        displayLl();
+        displayLl(head);
         break;
       case 6:
         displayAliasForLocation();
@@ -117,7 +122,6 @@ int optionActions(){
 }
 
 int main(){
-  readFromFile();
-  optionActions();
+  optionActions(readFromFile());
   return 0;
 }
