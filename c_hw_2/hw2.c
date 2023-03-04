@@ -48,7 +48,76 @@ int readFromFile(){
   return 0;
 }
 
+void addAddress(){
+  printf("addAddress");
+}
+
+void lookUpAddress(){
+  printf("lookUpAddress");
+}
+
+void updateAddress(){
+  printf("updateAddress");
+}
+
+void deleteAddress(){
+  printf("deleteAddress");
+}
+
+void displayLl(){
+  printf("displayLl");
+}
+
+void displayAliasForLocation(){
+  printf("displayAliasForLocation");
+}
+
+void saveToFile(){
+  printf("saveToFile");
+}
+
+int optionActions(){
+  int temp=0;
+  while(temp != 8){
+    printf("\n\nSelect The Task With Option Number: \n\n1 --> Add address\n2 --> Look up address\n3 --> Update address\n4 --> Delete address\n5 --> Display list\n6 --> Display aliases for location\n7 --> Save to file\n8 --> Quit\n\n");
+    printf("Enter Option: ");
+    scanf("%d", &temp);
+    switch(temp){
+      case 1:
+        addAddress();
+        break;
+      case 2:
+        lookUpAddress();
+        break;
+      case 3:
+        updateAddress();
+        break;
+      case 4:
+        deleteAddress();
+        break;
+      case 5:
+        displayLl();
+        break;
+      case 6:
+        displayAliasForLocation();
+        break;
+      case 7:
+        saveToFile();
+        break;
+      case 8:
+        printf("\nGood Bye!");
+        temp = 8;
+        break;
+      default:
+        printf("\nPlease Try Again Invalid Input: %i", temp);
+        break;
+    }
+  }
+  return 0;
+}
+
 int main(){
   readFromFile();
+  optionActions();
   return 0;
 }
