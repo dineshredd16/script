@@ -39,6 +39,17 @@ void printLinkedList(struct address_t* head){
   printf("Total Node Count: %d", count);
 }
 
+int searchAlias(struct address_t* head, char* alias) {
+  struct address_t* present = head;
+  while (present != NULL) {
+    if (strcmp(present->alias, alias) == 0) {
+      return 1;
+    }
+    present = present->next;
+  }
+  return 0;
+}
+
 struct address_t* readFromFile(){
   FILE *filePtr;
   filePtr = fopen("CS531_Inet.txt", "r");
@@ -52,8 +63,20 @@ struct address_t* readFromFile(){
   return head;
 }
 
-void addAddress(){
-  printf("addAddress");
+void addAddress(struct address_t* head){
+  char str;
+  char address[100];
+  printf("\nAdding Address: \n");
+  printf("\nEnter Alias: ");
+  scanf("%s", &str);
+  if (searchAlias(head, &str) == 1) {
+    printf("error: %d already exists in the linked list!\n", str);
+  } 
+  else {
+    printf("Enter Address For %c", str);
+    scanf("%s", address);
+    splitFileString(address, head);
+  }
 }
 
 void lookUpAddress(){
@@ -89,7 +112,7 @@ int optionActions(struct address_t* head){
     scanf("%d", &temp);
     switch(temp){
       case 1:
-        addAddress();
+        addAddress(head);
         break;
       case 2:
         lookUpAddress();
