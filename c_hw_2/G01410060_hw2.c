@@ -96,18 +96,30 @@ void addAddress(){
   }
   printf("\nEnter Address For %s: ", str);
   scanf("%s", address);
-  int eightBit[4];
-  sscanf(address, "%d.%d.%d.%d", &eightBit[0], &eightBit[1], &eightBit[2], &eightBit[3]);
-  while (searchAndValidateEightBit(eightBit) == 1) {
-    printf("Error: %d.%d.%d.%d is already present in the linked list or the address is not with the range of 0 to 255. \n Please Re- Enter: ", eightBit[0], eightBit[1], eightBit[2], eightBit[3]);
-    scanf("%s", address);
-    sscanf(address, "%d.%d.%d.%d", &eightBit[0], &eightBit[1], &eightBit[2], &eightBit[3]);
-    z=1;
-    break;
+  int temp=0;
+  for (int count = 0; address[count] != '\0'; count++){
+    if (strcmp(&address[count], ".") == 0){
+      temp++;
+    }
   }
-  if (z ==0){
-    insertIntoLl(eightBit[0], eightBit[1], eightBit[2], eightBit[3], str);
-    printf("Address - %d.%d.%d.%d added succesfully For - %s", eightBit[0], eightBit[1], eightBit[2], eightBit[3], str);
+  if (temp == 3){
+    int eightBit[4];
+    sscanf(address, "%d.%d.%d.%d", &eightBit[0], &eightBit[1], &eightBit[2], &eightBit[3]);
+    while (searchAndValidateEightBit(eightBit) == 1) {
+      printf("Error: %d.%d.%d.%d is already present in the linked list or the address is not with the range of 0 to 255. \n Please Re- Enter: ", eightBit[0], eightBit[1], eightBit[2], eightBit[3]);
+      scanf("%s", address);
+      sscanf(address, "%d.%d.%d.%d", &eightBit[0], &eightBit[1], &eightBit[2], &eightBit[3]);
+      z=1;
+      break;
+    }
+    if (z ==0){
+      insertIntoLl(eightBit[0], eightBit[1], eightBit[2], eightBit[3], str);
+      printf("Address - %d.%d.%d.%d added succesfully For - %s", eightBit[0], eightBit[1], eightBit[2], eightBit[3], str);
+    }
+  }
+  else {
+    printf("Invalid Address");
+    return;
   }
 }
 
@@ -252,38 +264,45 @@ int optionActions(){
     printf("Enter Option: ");
     scanf("%d", &temp);
     switch(temp){
-      case 1:
-        addAddress();
-        break;
-      case 2:
-        printf("\nEnter Alias: ");
-        scanf("%s", str);
-        lookUpAddress(str);
-        break;
-      case 3:
-        printf("\nEnter Alias: ");
-        scanf("%s", str);
-        updateAddress(str);
-        break;
-      case 4:
-        deleteAddress();
-        break;
-      case 5:
-        displayLl();
-        break;
-      case 6:
-        displayAliasForLocation();
-        break;
-      case 7:
-        saveToFile();
-        break;
-      case 8:
-        printf("\nGood Bye!");
-        temp = 8;
-        break;
-      default:
+      if (temp == 1 || temp == 2 || temp == 3 || temp == 4 || temp == 5 || temp == 6 || temp == 7 || temp == 8){
+        case 1:
+          addAddress();
+          break;
+        case 2:
+          printf("\nEnter Alias: ");
+          scanf("%s", str);
+          lookUpAddress(str);
+          break;
+        case 3:
+          printf("\nEnter Alias: ");
+          scanf("%s", str);
+          updateAddress(str);
+          break;
+        case 4:
+          deleteAddress();
+          break;
+        case 5:
+          displayLl();
+          break;
+        case 6:
+          displayAliasForLocation();
+          break;
+        case 7:
+          saveToFile();
+          break;
+        case 8:
+          printf("\nGood Bye!");
+          temp = 8;
+          break;
+        default:
+          printf("\nPlease Try Again Invalid Input: %i", temp);
+          break;
+      }
+      else {
         printf("\nPlease Try Again Invalid Input: %i", temp);
         break;
+        return 0;
+      }
     }
   }
   return 0;
