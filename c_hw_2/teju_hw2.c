@@ -1,4 +1,3 @@
-// MADE FOR LOKA KALYANAM
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -79,13 +78,13 @@ void insertFromFile(){
     int eightBit[4];
     char alias[11];
     sscanf(fileString, "%d.%d.%d.%d %s", &eightBit[0], &eightBit[1], &eightBit[2], &eightBit[3], alias);
-    // printf("%s-%d.%d.%d.%d\n", alias, eightBit[0], eightBit[1], eightBit[2], eightBit[3]);
     insertIntoLl(eightBit[0], eightBit[1], eightBit[2], eightBit[3], alias);
   }
   printf("\ninitial read of all the data records from CS531_Inet.txt is completed.");
 }
 
 void addAddress(){
+  int z=0;
   char str[100];
   char address[100];
   printf("\nEnter Alias: ");
@@ -100,13 +99,16 @@ void addAddress(){
   int eightBit[4];
   sscanf(address, "%d.%d.%d.%d", &eightBit[0], &eightBit[1], &eightBit[2], &eightBit[3]);
   while (searchAndValidateEightBit(eightBit) == 1) {
-    printf("Error: %d.%d.%d.%d is already preesent in the linked list or the address is not with the range of 0 to 255. \n Please Re- Enter: ", eightBit[0], eightBit[1], eightBit[2], eightBit[3]);
+    printf("Error: %d.%d.%d.%d is already present in the linked list or the address is not with the range of 0 to 255. \n Please Re- Enter: ", eightBit[0], eightBit[1], eightBit[2], eightBit[3]);
     scanf("%s", address);
     sscanf(address, "%d.%d.%d.%d", &eightBit[0], &eightBit[1], &eightBit[2], &eightBit[3]);
+    z=1;
     break;
   }
-  insertIntoLl(eightBit[0], eightBit[1], eightBit[2], eightBit[3], str);
-  printf("Address - %d.%d.%d.%d added succesfully For - %s", eightBit[0], eightBit[1], eightBit[2], eightBit[3], str);
+  if (z ==0){
+    insertIntoLl(eightBit[0], eightBit[1], eightBit[2], eightBit[3], str);
+    printf("Address - %d.%d.%d.%d added succesfully For - %s", eightBit[0], eightBit[1], eightBit[2], eightBit[3], str);
+  }
 }
 
 int lookUpAddress(char str[100]){
